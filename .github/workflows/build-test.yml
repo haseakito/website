@@ -1,0 +1,57 @@
+name: Build Test
+
+on:
+    push:
+        branches: [ main ]
+        branches-ignore: [ develop ]
+    
+    pull_request:
+        branches: [ main ]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+            
+            - name: Set up Nodejs
+              uses: actions/setup-node@v3
+              with:
+                node-version: 18
+                cache: npm
+            
+            - name: Cache node_modules
+              uses: actions/cache@v3
+              id: node_modules_cache_id
+              env:
+                cache_name: cache-node-modules
+              with:
+                path: '**/node_modules'
+                key: ${{ runner.os }}-build-${{ env.cache_name }}-${{ hashFiles('**/package-lock.json') }}
+
+            - name: Install dependencies
+              if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
+              run: |
+                npm i
+
+            - name: Build
+              run: |
+                npm run build
+
+            - name: Discord Notification on Success
+              if: ${{ success() }}
+              uses: Ilshidur/action-discord@master
+              env:
+                DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+              with:
+                args: 'The Project Successfully build!:rocket:'
+
+            - name: Discord Notification on Success
+              if: ${{ failure() }}
+              uses: Ilshidur/action-discord@master
+              env:
+                DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+              with:
+                args: 'The Project build Unsccessfull!:poop:'
