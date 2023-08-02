@@ -11,7 +11,7 @@ export default function page() {
             🚀About
         </h1>
         <div className='text-center font-mono font-bold'>
-            <p>The super awesome history of my career!</p>
+            <p>The super awesome history of my career! ...Perhaps?</p>
         </div>
         <div className='lg:grid lg:grid-cols-3 gap-5 mx-5 py-10'>
             <div className='flex justify-center mb-5'>
@@ -33,7 +33,7 @@ export default function page() {
                             className='grid grid-cols-2 items-center rounded gap-4 p-2 mx-5 hover:bg-gray-100 hover:scale-105 duration-300'
                         >
                             <h5 className='font-semibold'>Name</h5>
-                            <p>AKITO HASEGAWA</p>
+                            <p className='font-semibold'>AKITO HASEGAWA</p>
                         </div>
                         <div
                             className='grid grid-cols-2 items-center rounded gap-4 p-2 mx-5 hover:bg-gray-100 hover:scale-105 duration-300'
