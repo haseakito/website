@@ -13,15 +13,15 @@ export default function page() {
         <div className='text-center font-mono font-bold'>
             <p>The super awesome history of my career! ...Perhaps?</p>
         </div>
-        <div className='lg:grid lg:grid-cols-3 gap-5 mx-5 py-10'>
-            <div className='flex justify-center mb-5'>
+        <div className='lg:grid lg:grid-cols-5 mx-3 py-10'>
+            <div className='flex col-span-2 justify-center mb-5'>
                 <Image
                     src={ Icon }
                     alt=''
-                    className='w-1/2 lg:w-full mx-10 rounded hover:rounded-none duration-300 hover:shadow-md opacity-90 hover:opacity-100'
+                    className='w-1/2 lg:w-full mx-5 rounded hover:rounded-none duration-300 hover:shadow-md opacity-90 hover:opacity-100'
                 />
             </div>
-            <div className='col-span-2 mx-10'>
+            <div className='col-span-3 mx-10'>
                 <div
                     className='p-6 rounded hover:shadow-md duration-300'
                 >
