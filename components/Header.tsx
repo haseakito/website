@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 import { useTheme } from 'next-themes'
 import { MdMenu, MdClose } from 'react-icons/md'
 import { FaHome, FaSun, FaMoon } from 'react-icons/fa'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 
 export function Header() {
@@ -16,25 +16,32 @@ export function Header() {
     // Hooks handling the routing
     const router = useRouter()
 
+    // Hooks handling the routing path name
+    const path = usePathname()    
+
     // Boolean state handling the navigation bar
     const [ menuOpen, setMenuOpen ] = useState(false)
 
     const HeaderData = [
         {
             title : "About",
-            link : "/about"
+            link : "/about",
+            color: 'text-blue-500'
         },
         {
             title : "Products",
-            link : "/products"
+            link : "/products",
+            color: 'text-indigo-500'
         },
         {
             title : "Stacks",
-            link : "/stacks"
+            link : "/stacks",
+            color: 'text-green-500'
         },
         {
             title : "Blog",
-            link : "/blog"
+            link : "/blog",
+            color: 'text-rose-500'
         },
     ]
 
@@ -43,36 +50,26 @@ export function Header() {
   return (
     <header>
         <div className='shadow-lg border-b-[1px]'>
-            <div className='flex justify-between p-5'>
-                <div className='flex gap-10'>            
+            <div className='flex justify-between p-5'>               
+                {
+                    theme == 'light' ?
                     <button
-                        className='opacity-90 hover:opacity-100'
-                        onClick={() => router.push('/')}
+                        className='opacity-80 hover:opacity-100'
+                        onClick={() => setTheme('dark')}
                     >
-                        <FaHome
-                            size={ 35 }
+                        <FaMoon
+                            size={ 30 }                           
+                        />                    
+                    </button>
+                    :
+                    <button
+                        onClick={() => setTheme('light')}
+                    >
+                        <FaSun 
+                            size={ 30 }                        
                         />
-                    </button>                
-                    {
-                        theme == 'light' ?
-                        <button
-                            className='opacity-80 hover:opacity-100'
-                            onClick={() => setTheme('dark')}
-                        >
-                            <FaMoon
-                                size={ 30 }                           
-                            />                    
-                        </button>
-                        :
-                        <button
-                            onClick={() => setTheme('light')}
-                        >
-                            <FaSun 
-                                size={ 30 }                        
-                            />
-                        </button>
-                    }            
-                </div>
+                    </button>
+                }
                 <ul className='hidden lg:flex'>                
                     { HeaderData.map((value, key) => (
                         <li
@@ -80,10 +77,16 @@ export function Header() {
                             className='group relative inline-block'
                         >
                             <Link
-                                href={ value.link }
+                                href={ value.link }                                
                             >
                                 <div
-                                    className='block py-3 mx-4 font-bold rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 dark:text-white hover:opacity-80'
+                                    className={ 
+                                        `${ value.link === path ? 
+                                        `font-extrabold ${ value.color }`
+                                        : 
+                                        "font-bold"}
+                                        block py-3 mx-4 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 dark:text-white hover:opacity-80`
+                                    }
                                 >
                                     { value.title }
                                 </div>
