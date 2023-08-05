@@ -4,9 +4,10 @@ import Frontend from '@/public/Frontend.jpg'
 import Backend from '@/public/Backend.jpg'
 import Design from '@/public/Design.jpg'
 import Image from 'next/image'
-import { StackItem } from '@/components/StackItem'
+import Engineering from '@/public/Engineering.svg'
 import { PageTransitionAnimation } from '@/utils/PageTransitionAnimation'
 import { Navigation } from '@/components/Navigation'
+import { ScrollReveal } from '@/utils/ScrollReveal'
 
 
 export default function page() {
@@ -76,11 +77,21 @@ export default function page() {
             <Navigation
                 path='Stacks'
             />
-            <div className='relative'>
-                <h1 className='text-center text-6xl font-extrabold opacity-95 hover:opacity-100 py-10'>
-                    📚Stacks
-                </h1>
-                <span className='absolute bg-black h-2 w-16 bottom-5 inset-x-1/2'></span>
+            <div className='flex justify-center'>
+                <div className='relative inline-block'>
+                    <div className='flex'>
+                        <Image
+                            src={ Engineering }
+                            alt=''
+                            width={ 70 }
+                            className='animate-engineering'
+                        />
+                        <h1 className='text-center text-6xl font-extrabold opacity-95 hover:opacity-100 py-10 whitespace-nowrap overflow-hidden animate-appear-gradually'>
+                            Stacks
+                        </h1>
+                    </div>
+                    <span className='absolute bg-black h-2 w-16 bottom-5 inset-x-1/2'></span>
+                </div>
             </div>
             <div className='text-center font-mono font-bold pb-2'>
                 <p>Following are the lists of stacks that I like to develop my service and work with!</p>
@@ -98,7 +109,7 @@ export default function page() {
                         <span className='p-2 font-bold font-mono text-xl inline-block hover:scale-105 duration-500'>Design🎨</span>
                         <span className='absolute -bottom-0 left-0 h-0.5 w-full bg-red-500'></span>
                     </div>
-                    <div className='relative group flex justify-between sm:justify-around pl-2 mt-3'>
+                    <div className='relative flex justify-between sm:justify-around pl-2 mt-3'>
                         <div className='py-10'>
                             { DesignData.map((value, key) => {
                                 return (
@@ -108,12 +119,14 @@ export default function page() {
                                 )
                             })}
                         </div>
-                        <Image
-                            src={ Design }
-                            alt=''
-                            className='w-40 sm:w-52 md:w-80 rounded hover:rounded-none duration-300'
-                        />
-                        <span className='absolute box-border z-10 -bottom-40 -left-36 bg-cyan-400 w-60 h-96 rotate-[135deg] transition-all -translate-x-40 lg:group-hover:-translate-x-0 duration-300'></span>
+                        <ScrollReveal>
+                            <Image
+                                src={ Design }
+                                alt=''
+                                className='w-40 sm:w-52 md:w-80 rounded hover:rounded-none duration-300'
+                            />
+                        </ScrollReveal>
+                        <span className='absolute box-border z-10 -bottom-40 -left-36 bg-cyan-400 w-60 h-96 rotate-[135deg] -translate-x-40'></span>
                     </div>                
                 </div>
                 <div className='overflow-hidden'>
@@ -121,12 +134,14 @@ export default function page() {
                         <span className='p-2 font-bold font-mono text-xl inline-block hover:scale-105 duration-500'>💄Front End</span>
                         <span className='absolute -bottom-0 left-0 h-0.5 w-full bg-sky-800'></span>
                     </div>
-                    <div className='relative group flex justify-between sm:justify-around py-1'>
-                        <Image
-                            src={ Frontend }
-                            alt=''
-                            className='mt-5 w-40 sm:w-52 md:w-80 rounded hover:rounded-none duration-300'
-                        />
+                    <div className='relative flex justify-between sm:justify-around py-1'>
+                        <ScrollReveal>
+                            <Image
+                                src={ Frontend }
+                                alt=''
+                                className='mt-5 w-40 sm:w-52 md:w-80 rounded hover:rounded-none duration-300'
+                            />
+                        </ScrollReveal>
                         <div className='py-4'>
                             { FrontData.map((value, key) => {
                                 return (
@@ -136,7 +151,7 @@ export default function page() {
                                 )
                             })}
                         </div>
-                        <span className='absolute box-border z-10 -bottom-40 -right-36 bg-green-300 w-60 h-96 rotate-45 transition-all translate-x-40 lg:group-hover:translate-x-0 duration-300'></span>
+                        <span className='absolute box-border z-10 -bottom-40 -right-36 bg-green-300 w-60 h-96 rotate-45 translate-x-40 duration-300'></span>
                     </div>
                 </div>
                 <div className='overflow-hidden'>
@@ -144,7 +159,7 @@ export default function page() {
                         <span className='p-2 font-bold font-mono text-xl inline-block hover:scale-105 duration-500'>Back End🚀</span>
                         <span className='absolute -bottom-0 left-0 h-0.5 w-full bg-purple-500'></span>
                     </div>
-                    <div className='relative group flex justify-between sm:justify-around'>
+                    <div className='relative flex justify-between sm:justify-around'>
                         <div className='py-4'>
                             { BackData.map((value, key) => {
                                 return (
@@ -154,12 +169,14 @@ export default function page() {
                                 )
                             })}
                         </div>
-                        <Image
-                            src={ Backend }
-                            alt=''
-                            className='mt-5 w-40 sm:w-52 md:w-80 rounded hover:rounded-none duration-300'
-                        />
-                        <span className='absolute box-border z-10 -bottom-40 -left-36 bg-violet-400 w-60 h-96 rotate-[135deg] transition-all -translate-x-40  lg:group-hover:-translate-x-0 duration-300'></span>                    
+                        <ScrollReveal>
+                            <Image
+                                src={ Backend }
+                                alt=''
+                                className='mt-5 w-40 sm:w-52 md:w-80 rounded hover:rounded-none duration-300'
+                            />
+                        </ScrollReveal>
+                        <span className='absolute box-border z-10 -bottom-40 -left-36 bg-violet-400 w-60 h-96 rotate-[135deg] -translate-x-40 duration-300'></span>                    
                     </div>
                 </div>
             </div>

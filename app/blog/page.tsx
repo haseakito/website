@@ -1,3 +1,4 @@
+import React from 'react'
 import { BlogCard } from '@/components/BlogCard'
 import { Navigation } from '@/components/Navigation'
 import { TagButton } from '@/components/TagButton'
@@ -5,7 +6,8 @@ import { client } from '@/libs/client'
 import { PageTransitionAnimation } from '@/utils/PageTransitionAnimation'
 import { Blog } from '@/utils/types/Blog'
 import { Tag } from '@/utils/types/Tag'
-import React from 'react'
+import Image from 'next/image'
+import Coffee from '@/public/Coffee.svg'
 
 // Function handling fetching the blogs from microCMS
 async function getBlogs() {
@@ -36,16 +38,25 @@ export default async function page() {
   return (
     <PageTransitionAnimation>
         <div className='h-screen'>
-        <div className='relative'>
             <Navigation
                 path='Blogs'
             />
-            <h1 className='text-center text-6xl font-extrabold opacity-95 hover:opacity-100 py-10'>
-                Blogs
-            </h1>
-            <span className='absolute bg-black h-2 w-10 left-2/4 bottom-5 animate-scale-in-center'></span>
-            <span className='absolute bg-black h-2 w-10 right-1/2 bottom-5 animate-scale-in-center'></span>
-        </div>
+            <div className='flex justify-center'>
+                <div className='relative inline-block'>
+                    <div className='flex'>                        
+                        <Image
+                            src={ Coffee }
+                            alt=''
+                            width={ 70 }
+                            className=''
+                        />
+                        <h1 className='text-center text-6xl font-extrabold opacity-95 hover:opacity-100 py-10 whitespace-nowrap overflow-hidden animate-appear-gradually'>
+                            Blogs
+                        </h1>
+                    </div>
+                <span className='absolute bg-black h-2 w-16 bottom-5 inset-x-1/2 animate-scale-in-center'></span>
+            </div>
+            </div>
             <div className='mx-20 block lg:hidden'>
                 <div className='bg-white hover:shadow-md rounded-md px-16 py-5 space-y-3'>
                     <h2 className='text-center font-medium'>🏷️Tags</h2>
