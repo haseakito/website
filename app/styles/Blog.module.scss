@@ -1,0 +1,54 @@
+.post {
+    & h1 {
+        font-size: 30px;
+        font-weight: bold;
+        margin: 40px 0 20px;
+        background-color: #eee;
+        padding: 10px 20px;
+        border-radius: 5px;
+    }
+
+    & h2 {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 40px 0 16px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    & h3 {
+        font-size: 18px;
+        font-weight: 700;        
+    }
+
+    
+    & p {
+        padding: 20px;
+        line-height: 1.8;
+        letter-spacing: 0.2px;
+    }
+    
+    & ul {
+        padding: 20px;
+        
+    }
+
+    & li {
+        list-style: disc;
+        padding-top: 5px;
+    }
+
+    & pre {
+        margin: 1em 0; /* ブロック前後の余白 */
+        padding: 1em; /* ブロック内の余白 */
+        border-radius: 5px; /* 角丸 */
+        background: #25292f; /* 背景色 */
+        color: #fff; /* 文字色 */
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    & ol {
+        list-style-type: decimal;
+        list-style-position: inside;
+    }
+}
