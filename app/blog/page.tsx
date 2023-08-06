@@ -8,6 +8,7 @@ import { Blog } from '@/utils/types/Blog'
 import { Tag } from '@/utils/types/Tag'
 import Image from 'next/image'
 import Coffee from '@/public/Coffee.svg'
+import { Tweet } from 'react-tweet'
 
 // Function handling fetching the blogs from microCMS
 async function getBlogs() {
