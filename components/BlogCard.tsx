@@ -2,7 +2,6 @@ import { Tag } from '@/utils/types/Tag'
 import React from 'react'
 import { TagButton } from './TagButton'
 import Link from 'next/link'
-import Image from 'next/image'
 
 type BlogCardProps = {
     blogId: string,
