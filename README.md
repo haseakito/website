@@ -47,6 +47,11 @@ Libraries
 - [nodemailer](https://nodemailer.com/)
 - [framer-motion](https://www.framer.com/motion/)
 
+## CI/CD
+
+GitHub Actions offers CI/CD pipeline. Notify me build status on [Discord](https://discord.com/) channel.
+
 ## Deploy
 
 Hosting the website on [netlify](https://www.netlify.com/).
+Domain by [お名前.com](https://www.onamae.com/).
