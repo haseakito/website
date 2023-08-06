@@ -4,13 +4,17 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import { useTheme } from 'next-themes'
 import { MdMenu, MdClose } from 'react-icons/md'
-import { FaSun, FaMoon } from 'react-icons/fa'
+import { FaHome, FaSun, FaMoon } from 'react-icons/fa'
+import { useRouter } from 'next/navigation'
 
 
 export function Header() {
 
     // Hooks handling the light and dark mode
     const { theme, setTheme } = useTheme() 
+
+    // Hooks handling the routing
+    const router = useRouter()
 
     // Boolean state handling the navigation bar
     const [ menuOpen, setMenuOpen ] = useState(false)
@@ -40,24 +44,35 @@ export function Header() {
     <header>
         <div className='shadow-lg border-b-[1px]'>
             <div className='flex justify-between p-5'>
-                {
-                    theme == 'light' ?
+                <div className='flex gap-10'>            
                     <button
-                        onClick={() => setTheme('dark')}
+                        className='opacity-90 hover:opacity-100'
+                        onClick={() => router.push('/')}
                     >
-                        <FaMoon
-                            size={ 30 }
-                        />                    
-                    </button>
-                    :
-                    <button
-                        onClick={() => setTheme('light')}
-                    >
-                        <FaSun 
-                            size={ 30 }                        
+                        <FaHome
+                            size={ 35 }
                         />
-                    </button>
-                }            
+                    </button>                
+                    {
+                        theme == 'light' ?
+                        <button
+                            className='opacity-80 hover:opacity-100'
+                            onClick={() => setTheme('dark')}
+                        >
+                            <FaMoon
+                                size={ 30 }                           
+                            />                    
+                        </button>
+                        :
+                        <button
+                            onClick={() => setTheme('light')}
+                        >
+                            <FaSun 
+                                size={ 30 }                        
+                            />
+                        </button>
+                    }            
+                </div>
                 <ul className='hidden lg:flex'>                
                     { HeaderData.map((value, key) => (
                         <li
