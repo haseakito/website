@@ -10,7 +10,7 @@ type BlogCardProps = {
         url: string,
         width: number,
         height: number
-    }
+    },
     title: string,
     tags: Tag[],
     publishedAt: string,
@@ -23,9 +23,9 @@ export function BlogCard(props: BlogCardProps) {
   return (
     <div className='max-w-lg mx-auto'>
         <div className='bg-white hover:bg-teal-50 hover:shadow-xl border border-gray-200 rounded-lg hover:rounded-none duration-300 max-w-sm opacity-90 hover:opacity-100'>
-            <Image
-                src={ thumbnail.url }
-                alt=''                
+            <img
+                src={ thumbnail.url }                
+                alt=''                           
                 className='rounded-t-lg overflow-hidden'
             />
             <div className='p-5'>
