@@ -9,9 +9,12 @@ import tailwindcss from "@tailwindcss/vite";
 
 import compress from "astro-compress";
 
+import cloudflare from "@astrojs/cloudflare";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://haseakito.com",
+
   integrations: [
     react(),
     mdx(),
@@ -29,13 +32,17 @@ export default defineConfig({
     }),
     compress(),
   ],
+
   markdown: {
     remarkPlugins: [[remarkToc, { heading: "toc", maxDepth: 3 }]],
     shikiConfig: {
       theme: "github-dark",
     },
   },
+
   vite: {
     plugins: [tailwindcss()],
   },
+
+  adapter: cloudflare(),
 });
