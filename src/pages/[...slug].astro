@@ -1,0 +1,73 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import {
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
+	BreadcrumbPage,
+	BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+
+import { getCollection, render } from "astro:content";
+import { SITE_TITLE } from "@/config/site";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("other");
+  return posts.map((post) => ({
+    params: { slug: post.data.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const pageTitle = `${post.data.title} - ${SITE_TITLE}`;
+const pageDescription = post.data.description || `${post.data.title} - ${SITE_TITLE}`;
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <div class="min-h-screen bg-background">
+    <main class="max-w-screen-md w-full px-4 md:px-10 mx-auto py-16 md:py-24">
+    <Breadcrumb>
+        <BreadcrumbList>
+            <BreadcrumbItem>
+                <BreadcrumbLink href="/">Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+                <BreadcrumbPage>{post.data.title}</BreadcrumbPage>
+            </BreadcrumbItem>
+        </BreadcrumbList>
+    </Breadcrumb>
+
+    <div class="py-6">
+      <!-- Header -->
+      <header class="mb-12">
+        <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+          {post.data.title}
+        </h1>
+        <div class="flex items-center gap-3 text-sm text-muted-foreground">
+          <time datetime={post.data.date}>
+            {new Date(post.data.date).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </time>
+          <span>·</span>
+          <span>{post.data.author}</span>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <article class="prose prose-slate dark:prose-invert max-w-none">
+        <Content />
+      </article>
+      </div>
+
+      </div>
+    </main>
+  </div>
+</Layout>
