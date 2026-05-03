@@ -1,0 +1,48 @@
+---
+const sections = [
+  {
+    title: "Links",
+    links: [
+      { href: "https://x.com/haseakito_dev", text: "X (Twitter)" },
+      { href: "https://github.com/haseakito", text: "GitHub" },
+      { href: "https://www.linkedin.com/in/haseakito/", text: "LinkedIn" },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      { href: "/privacy-policy", text: "Privacy Policy" },
+      { href: "/terms-of-service", text: "Terms of Service" },
+      { href: "/disclaimer", text: "Disclaimer" },
+    ],
+  },
+];
+---
+
+<footer class='max-w-screen-lg w-full px-4 md:px-10 mx-auto flex flex-col pb-20'>
+  <div>
+    <div class='flex flex-wrap gap-8 items-start justify-between'>
+      {
+        sections.map((section) => (
+          <div class='w-[45%] md:w-[30%]'>
+            <p
+              class='text-slate-800 text-base font-semibold m-0'
+              aria-label={`${section.title} navigation`}
+            >
+              {section.title}
+            </p>
+            {section.links.length > 0 && (
+              <div class='flex flex-col'>
+                {section.links.map((link) => (
+                  <a href={link.href} class='text-slate-800 text-sm mt-1.5 w-fit hover:underline'>
+                    {link.text}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</footer>
