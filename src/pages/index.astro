@@ -1,0 +1,28 @@
+---
+import "@/styles/global.css";
+
+import { getCollection } from 'astro:content';
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Line from "@/components/Line.astro";
+import ArticleList from "@/components/ArticleList.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from '@/config/site';
+
+// Fetch all articles
+const articles = await getCollection('articles');
+---
+
+<Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <body class='flex flex-col min-h-dvh w-dvw bg-slate-100 antialiased'>
+    <Header />
+    <Line />
+
+    <main class="max-w-screen-lg w-full px-4 md:px-10 mx-auto flex-1">
+      <ArticleList articles={articles} />
+    </main>
+
+    <Line />
+    <Footer />
+  </body>
+</Layout>
