@@ -1,0 +1,90 @@
+---
+import {
+	Card,
+	CardContent,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { formatDate, getReadingTime } from "@/lib/utils";
+
+interface Article {
+	title: string;
+	excerpt: string;
+	slug: string;
+	body?: string;
+	thumbnail: string;
+	date: string;
+	category: string;
+	tags: string[];
+}
+
+interface Props {
+  article: Article;
+}
+
+const { article } = Astro.props;
+const { title, excerpt, slug, body, thumbnail, date, category, tags } = article;
+---
+
+<a href={`/articles/${slug}`} class="block group">
+	<Card class="py-0 hover:shadow-md transition-shadow">
+		<div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+			<img
+				src={thumbnail}
+				alt={title}
+				width={500}
+				height={300}
+				loading="lazy"
+				class="w-full h-full aspect-video object-cover rounded-xl"
+			/>
+
+			<div class="flex flex-col justify-center">
+				<CardHeader class="p-0 mb-4">
+					<div class="flex items-center gap-3 text-[11px] md:text-sm text-muted-foreground mb-2">
+						<time>{formatDate(date)}</time>
+						<span>•</span>
+						<span>{getReadingTime(body || "")}</span>
+						{category && (
+							<>
+								<span>•</span>
+								<Badge
+									variant="outline"
+									class="text-[9px] md:text-sm"
+								>
+									{category}
+								</Badge>
+							</>
+						)}
+					</div>
+					<CardTitle class="text-xl sm:text-3xl group-hover:text-primary transition-colors">
+						{title}
+					</CardTitle>
+				</CardHeader>
+
+				<CardContent class="p-0 flex-grow">
+					<p class="my-2.5 text-muted-foreground leading-relaxed text-[10px] md:text-sm italic">
+						{excerpt}
+					</p>
+				</CardContent>
+
+				<CardFooter class="flex flex-col items-start gap-4">
+					{tags && tags.length > 0 && (
+						<div class="flex flex-wrap gap-2">
+							{tags.map((tag) => (
+								<Badge
+									key={tag}
+									variant="secondary"
+									class="text-[9px] px-1.5 md:px-2.5 py-1"
+								>
+									#{tag}
+								</Badge>
+							))}
+						</div>
+					)}
+				</CardFooter>
+			</div>
+		</div>
+	</Card>
+</a>

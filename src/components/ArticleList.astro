@@ -1,0 +1,94 @@
+---
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import FeaturedArticle from "@/components/FeaturedArticle.astro";
+
+interface Article {
+  id: string;
+  data: {
+    title: string;
+    slug: string;
+    thumbnail: string;
+    date: string;
+    category: string;
+    excerpt: string;
+    description?: string;
+    tags: string[];
+    author: string;
+  };
+  body?: string;
+}
+
+interface Props {
+  articles: Article[];
+}
+
+const { articles } = Astro.props;
+
+// Sort articles by date (newest first)
+const sortedArticles = [...articles].sort((a, b) => {
+  return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+});
+
+const latestArticle = sortedArticles[0];
+const remainingArticles = sortedArticles.slice(1);
+---
+
+<div class="space-y-8">
+  {/* Latest Article - Full Width Featured */}
+  {latestArticle && (
+    <div class="w-full">
+      <FeaturedArticle
+        article={{
+          title: latestArticle.data.title,
+          excerpt: latestArticle.data.excerpt,
+          slug: latestArticle.data.slug,
+          body: latestArticle.body,
+          thumbnail: latestArticle.data.thumbnail,
+          date: latestArticle.data.date,
+          category: latestArticle.data.category,
+          tags: latestArticle.data.tags,
+        }}
+      />
+    </div>
+  )}
+
+  {/* Remaining Articles - 3 Column Grid */}
+  {remainingArticles.length > 0 && (
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {remainingArticles.map((article) => (
+        <a href={`/articles/${article.data.slug}`} class="block group">
+          <Card className="h-full transition-shadow hover:shadow-lg">
+            <div class="aspect-video w-full overflow-hidden">
+              <img
+                src={article.data.thumbnail}
+                alt={article.data.title}
+                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+            </div>
+            <CardHeader>
+              <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+                <span>{article.data.category}</span>
+                <span>·</span>
+                <span>{new Date(article.data.date).toLocaleDateString()}</span>
+              </div>
+              <CardTitle>{article.data.title}</CardTitle>
+              <CardDescription>
+                {article.data.excerpt}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div class="flex items-center gap-2">
+                <span class="text-sm text-muted-foreground">By {article.data.author}</span>
+              </div>
+              <div class="flex flex-wrap gap-2 mt-4">
+                {article.data.tags.map((tag) => (
+                  <span class="text-xs px-2 py-1 bg-muted rounded-full">{tag}</span>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </a>
+      ))}
+    </div>
+  )}
+</div>
