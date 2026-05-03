@@ -1,0 +1,155 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Prose from "@/components/Prose.astro";
+import { Badge } from "@/components/ui/badge";
+import {
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
+	BreadcrumbPage,
+	BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+
+import { Image } from "astro:assets";
+import { getCollection, render } from "astro:content";
+import { SITE_TITLE } from "@/config/site";
+import { formatDate, getReadingTime } from "@/lib/utils";
+
+export async function getStaticPaths() {
+	const blogPosts = await getCollection("articles");
+	return blogPosts.map((post) => ({
+		params: { slug: post.id },
+		props: { post },
+	}));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const pageTitle = `${post.data.title} - ${SITE_TITLE}`;
+const pageDescription = `${post.data.description}`;
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+    <body class='flex flex-col min-h-dvh w-dvw bg-slate-100 antialiased'>
+    <span class='pt-16 max-w-screen-md px-4 md:px-10 mx-auto w-full flex'></span>
+
+    <!-- Main Content -->
+    <main class='max-w-screen-md w-full px-4 md:px-10 mx-auto flex-1'>
+
+        <div>
+            <Breadcrumb>
+                <BreadcrumbList>
+                    <BreadcrumbItem>
+                        <BreadcrumbLink href="/">Articles</BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                        <BreadcrumbPage>{post.data.title}</BreadcrumbPage>
+                    </BreadcrumbItem>
+                </BreadcrumbList>
+            </Breadcrumb>
+
+            <article itemscope itemtype='https://schema.org/BlogPosting' class="py-12">
+                <header class="mb-8">
+                    {
+                        post.data.thumbnail && (
+                            <Image
+                                src={post.data.thumbnail}
+                                alt={post.data.title}
+                                width={960}
+                                height={540}
+                                loading="lazy"
+                                class="object-cover w-full h-full rounded-lg"
+                            />
+                        )
+                    }
+
+                    <h1
+                        class="mt-7 scroll-m-20 text-4xl font-extrabold tracking-tight"
+                    >
+                        {post.data.title}
+                    </h1>
+
+                    <div
+                        class="flex flex-wrap items-center gap-3 text-sm text-muted-foreground mt-7 mb-4"
+                    >
+                        <span>{formatDate(post.data.date)}</span>
+                        <span>•</span>
+                        <span>{getReadingTime(post.body || "")}</span>
+                        {
+                            post.data.category && (
+                                <>
+                                    <span>•</span>
+                                    <Badge
+                                        variant="secondary"
+                                        className="font-medium"
+                                    >
+                                        {post.data.category}
+                                    </Badge>
+                                </>
+                            )
+                        }
+                    </div>
+
+                    {
+                        post.data.tags?.length > 0 && (
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                {post.data.tags.map((tag) => (
+                                    <Badge
+                                        variant="secondary"
+                                        className="text-[11px] px-2.5 py-1"
+                                    >
+                                        #{tag}
+                                    </Badge>
+                                ))}
+                            </div>
+                        )
+                    }
+
+                    {
+                        post.data.excerpt && (
+                            <blockquote class="bg-secondary/5 border-l-3 border-primary pl-4 py-4 mb-8 rounded-r">
+                                <p class="leading-6 text-sm italic">
+                                    &quot;{post.data.excerpt}&quot;
+                                </p>
+                            </blockquote>
+                        )
+                    }
+                </header>
+
+                <Prose>
+                    <Content />
+                </Prose>
+
+                <footer class="mt-12 pt-6 border-t">
+                    <div class="flex flex-wrap gap-2">
+                        {
+                            post.data.tags?.map((tag) => (
+                                <Badge
+                                    variant="secondary"
+                                    className="text-[11px] px-2.5 py-1"
+                                >
+                                    #{tag}
+                                </Badge>
+                            ))
+                        }
+                    </div>
+                </footer>
+            </article>
+        </div>
+    </div>
+
+    <style>
+        /* Smooth scrolling for TOC links */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Highlight current section in TOC */
+        :target {
+            scroll-margin-top: 2rem;
+        }
+    </style>
+    </main>
+    </body>
+</Layout>
