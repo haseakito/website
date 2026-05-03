@@ -9,8 +9,6 @@ import tailwindcss from "@tailwindcss/vite";
 
 import compress from "astro-compress";
 
-import cloudflare from "@astrojs/cloudflare";
-
 // https://astro.build/config
 export default defineConfig({
   site: "https://haseakito.com",
@@ -43,6 +41,4 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-
-  adapter: cloudflare(),
 });
