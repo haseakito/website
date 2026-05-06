@@ -1,30 +1,30 @@
-import { defineCollection } from "astro:content";
-import { z } from "astro/zod";
 import { glob } from "astro/loaders";
+import { z } from "astro/zod";
+import { defineCollection } from "astro:content";
 
 const articles = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/contents/articles" }),
+  loader: glob({ base: "./src/contents/articles", pattern: "**/*.{md,mdx}" }),
   schema: z.object({
-    title: z.string(),
-    slug: z.string(),
-    thumbnail: z.string(),
-    date: z.string(),
-    category: z.string(),
-    excerpt: z.string(),
-    description: z.string().optional(),
-    tags: z.array(z.string()),
     author: z.string(),
+    category: z.string(),
+    date: z.string(),
+    description: z.string().optional(),
+    excerpt: z.string(),
+    slug: z.string(),
+    tags: z.array(z.string()),
+    thumbnail: z.string(),
+    title: z.string(),
   }),
 });
 
 const other = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/contents/other" }),
+  loader: glob({ base: "./src/contents/other", pattern: "**/*.{md,mdx}" }),
   schema: z.object({
-    title: z.string(),
+    author: z.string(),
+    date: z.string(),
     description: z.string().optional(),
     slug: z.string(),
-    date: z.string(),
-    author: z.string(),
+    title: z.string(),
   }),
 });
 
