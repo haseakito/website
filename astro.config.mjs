@@ -1,25 +1,18 @@
-// @ts-check
-import { defineConfig } from "astro/config";
-import sitemap from "@astrojs/sitemap";
-import react from "@astrojs/react";
 import mdx from "@astrojs/mdx";
-
-import remarkToc from "remark-toc";
+import react from "@astrojs/react";
+import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
-
 import compress from "astro-compress";
+import { defineConfig } from "astro/config";
+import remarkToc from "remark-toc";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://haseakito.com",
-
   integrations: [
     react(),
     mdx(),
     sitemap({
       changefreq: "weekly",
-      priority: 0.7,
-      lastmod: new Date(),
       i18n: {
         defaultLocale: "en",
         locales: {
@@ -27,6 +20,8 @@ export default defineConfig({
           ja: "ja-JP",
         },
       },
+      lastmod: new Date(),
+      priority: 0.7,
     }),
     compress(),
   ],
@@ -37,6 +32,8 @@ export default defineConfig({
       theme: "github-dark",
     },
   },
+
+  site: "https://haseakito.com",
 
   vite: {
     plugins: [tailwindcss()],
