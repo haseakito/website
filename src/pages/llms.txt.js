@@ -1,7 +1,8 @@
 import { getCollection } from "astro:content";
+
 import { SITE_TITLE, SITE_DESCRIPTION } from "@/config/site";
 
-export async function GET(context) {
+export const GET = async (context) => {
   const posts = await getCollection("articles");
   const items = posts.map((post) => ({
     ...post.data,
@@ -14,17 +15,17 @@ export async function GET(context) {
     link: new URL(`/${post.slug}/`, context.site).toString(),
   }));
 
-  context = `# ${SITE_TITLE}\n\n> ${SITE_DESCRIPTION}\n\n## Articles\n\n${items
+  const articleSection = `# ${SITE_TITLE}\n\n> ${SITE_DESCRIPTION}\n\n## Articles\n\n${items
     .map((item) => `- [${item.title}](${item.link}): ${item.description}`)
     .join("\n")}`;
 
-  context += `\n\n## Other\n\n${otherItems
+  const body = `${articleSection}\n\n## Other\n\n${otherItems
     .map((item) => `- [${item.title}](${item.link}): ${item.description}`)
     .join("\n")}`;
 
-  return new Response(context, {
+  return new Response(body, {
     headers: {
       "Content-Type": "text/plain",
     },
   });
-}
+};
