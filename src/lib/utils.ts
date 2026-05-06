@@ -1,29 +1,30 @@
-import { clsx, type ClassValue } from "clsx";
+import { clsx } from "clsx";
+import type { ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
 
-export function getReadingTime(content: string): string {
+export const getReadingTime = (content: string): string => {
   const wordsPerMinute = 200;
   const words = content.split(/\s+/).length;
   const minutes = Math.ceil(words / wordsPerMinute);
   return `${minutes} min read`;
-}
+};
 
-export function formatDate(date: string): string {
-  return new Date(date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
+export const formatDate = (date: string): string =>
+  new Date(date).toLocaleDateString("en-US", {
     day: "numeric",
+    month: "long",
+    year: "numeric",
   });
-}
 
-export function normalizePathname(pathname: string): string {
-  if (!pathname) return "/";
+const ensureLeadingSlash = (value: string) =>
+  value.startsWith("/") ? value : `/${value}`;
 
-  const ensureLeadingSlash = (value: string) => (value.startsWith("/") ? value : `/${value}`);
+export const normalizePathname = (pathname: string): string => {
+  if (!pathname) {
+    return "/";
+  }
 
   const input = ensureLeadingSlash(pathname === "/" ? "/" : pathname);
 
@@ -42,13 +43,18 @@ export function normalizePathname(pathname: string): string {
   }
 
   return input;
-}
+};
 
-export function buildCanonicalUrl(url: URL, site?: string | URL): string {
-  const baseInput = site ? (typeof site === "string" ? site : site.href) : url.origin;
+export const buildCanonicalUrl = (url: URL, site?: string | URL): string => {
+  let baseInput: string;
+  if (site) {
+    baseInput = typeof site === "string" ? site : site.href;
+  } else {
+    baseInput = url.origin;
+  }
   const base = new URL(baseInput);
   const pathname = normalizePathname(url.pathname);
   const canonical = new URL(pathname + url.search, base);
   canonical.hash = "";
   return canonical.href;
-}
+};
