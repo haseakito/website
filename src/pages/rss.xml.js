@@ -1,28 +1,25 @@
 import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
+
 import { SITE_TITLE, SITE_DESCRIPTION } from "@/config/site";
 
-export async function GET(context) {
-  let items = [];
-
+export const GET = async (context) => {
   const posts = await getCollection("articles");
-  items = posts.map((post) => ({
+  const articleItems = posts.map((post) => ({
     ...post.data,
     link: `/articles/${post.slug}/`,
   }));
 
   const pages = await getCollection("other");
-  items = items.concat(
-    pages.map((post) => ({
-      ...post.data,
-      link: `/${post.slug}/`,
-    })),
-  );
+  const pageItems = pages.map((post) => ({
+    ...post.data,
+    link: `/${post.slug}/`,
+  }));
 
   return rss({
-    title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    items: items,
+    items: [...articleItems, ...pageItems],
     site: context.site,
+    title: SITE_TITLE,
   });
-}
+};
