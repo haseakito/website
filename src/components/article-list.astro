@@ -1,6 +1,6 @@
 ---
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import FeaturedArticle from "@/components/FeaturedArticle.astro";
+import FeaturedArticle from "@/components/featured-article.astro";
 
 interface Article {
   id: string;
@@ -25,11 +25,9 @@ interface Props {
 const { articles } = Astro.props;
 
 // Sort articles by date (newest first)
-const sortedArticles = [...articles].sort((a, b) => {
-  return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
-});
+const sortedArticles = [...articles].toSorted((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
-const latestArticle = sortedArticles[0];
+const [latestArticle] = sortedArticles;
 const remainingArticles = sortedArticles.slice(1);
 ---
 
