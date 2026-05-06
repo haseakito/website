@@ -1,5 +1,5 @@
 ---
-import Layout from "@/layouts/Layout.astro";
+import Layout from "@/layouts/layout.astro";
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -12,13 +12,13 @@ import {
 import { getCollection, render } from "astro:content";
 import { SITE_TITLE } from "@/config/site";
 
-export async function getStaticPaths() {
+export const getStaticPaths = async () => {
   const posts = await getCollection("other");
   return posts.map((post) => ({
     params: { slug: post.data.slug },
     props: { post },
   }));
-}
+};
 
 const { post } = Astro.props;
 const { Content } = await render(post);
