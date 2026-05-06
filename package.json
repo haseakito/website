@@ -18,12 +18,10 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "lint": "oxlint",
-    "lint:fix": "oxlint --fix",
-    "fmt": "oxfmt",
-    "fmt:check": "oxfmt --check",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "ultracite check",
+    "fix": "ultracite fix"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.4",
@@ -51,8 +49,9 @@
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.19",
     "@types/bun": "1.2.9",
-    "oxfmt": "^0.47.0",
-    "oxlint": "^1.62.0"
+    "oxfmt": "^0.48.0",
+    "oxlint": "^1.63.0",
+    "ultracite": "7.6.3"
   },
   "packageManager": "bun@1.2.9"
 }
