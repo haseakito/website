@@ -21,7 +21,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "check": "ultracite check",
-    "fix": "ultracite fix"
+    "fix": "ultracite fix",
+    "hook:sync": "lefthook install"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.4",

@@ -1,0 +1,11 @@
+pre-commit:
+  commands:
+    lint:
+      run: bun run fix
+      fail_text: "Linting failed. Please fix the issues and try again."
+
+pre-push:
+  commands:
+    build:
+      run: bun run build
+      fail_text: "Build failed. Please fix the issues and try again."
