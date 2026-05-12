@@ -4,5 +4,5 @@ import core from "ultracite/oxlint/core";
 import react from "ultracite/oxlint/react";
 
 export default defineConfig({
-  extends: [core, astro, react],
+  extends: [astro, core, react],
 });
